@@ -1,0 +1,292 @@
+<template>
+  <div class="min-h-screen flex flex-col">
+    <!-- Cabeçalho da Aplicação -->
+    <header class="bg-white shadow-md sticky top-0 z-20 w-full">
+      <nav class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex-shrink-0">
+            <a href="#" @click.prevent="currentPage = 'home'" class="flex items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 h-8 w-8"><path d="M2 21a8 4 0 0 1 16 0"/><path d="M9 13c-2.5 0-4-3.5-4-6 2-2.5 4-2.5 6 0 2 2.5 2 6-1 6h-1Z"/><path d="M14 13c2.5 0 4-3.5 4-6-2-2.5-4-2.5-6 0-2 2.5-2 6 1 6h1Z"/><path d="M12 21a4 4 0 0 0 8 0"/></svg>
+              <span class="text-xl font-bold text-slate-800">Coworking Jurídico</span>
+            </a>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="#" @click.prevent="currentPage = 'home'" :class="{'text-blue-600 font-semibold': currentPage === 'home', 'text-gray-500 hover:text-blue-600': currentPage !== 'home'}" class="px-3 py-2 rounded-md text-sm font-medium">Início</a>
+              <a href="#" @click.prevent="currentPage = 'booking'" :class="{'text-blue-600 font-semibold': currentPage === 'booking', 'text-gray-500 hover:text-blue-600': currentPage !== 'booking'}" class="px-3 py-2 rounded-md text-sm font-medium">Reservar</a>
+              <a href="#" @click.prevent="currentPage = 'gallery'" :class="{'text-blue-600 font-semibold': currentPage === 'gallery', 'text-gray-500 hover:text-blue-600': currentPage !== 'gallery'}" class="px-3 py-2 rounded-md text-sm font-medium">Galeria</a>
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+              <span class="sr-only">Abrir menu</span>
+              <svg :class="{'hidden': mobileMenuOpen, 'block': !mobileMenuOpen }" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg :class="{'block': mobileMenuOpen, 'hidden': !mobileMenuOpen }" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <!-- Menu Mobile -->
+      <div v-show="mobileMenuOpen" class="md:hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a href="#" @click.prevent="navigateTo('home')" class="text-gray-500 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Início</a>
+          <a href="#" @click.prevent="navigateTo('booking')" class="text-gray-500 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Reservar</a>
+          <a href="#" @click.prevent="navigateTo('gallery')" class="text-gray-500 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Galeria</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-full">
+      <!-- Transição entre as páginas -->
+      <transition name="fade" mode="out-in">
+        <div :key="currentPage" class="w-full">
+          <!-- Página Inicial (Home) -->
+          <section v-if="currentPage === 'home'" class="w-full">
+            <div class="relative bg-white overflow-hidden w-full">
+              <div class="w-full">
+                <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                  <main class="mt-10 mx-auto w-full px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                      <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                        <span class="block">Seu escritório de advocacia</span>
+                        <span class="block text-blue-600">pronto para usar.</span>
+                      </h1>
+                      <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        Ambiente profissional e totalmente equipado. Alugue por hora, dia ou mês e foque no que realmente importa: seus clientes.
+                      </p>
+                      <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                        <div class="rounded-md shadow">
+                          <a href="#" @click.prevent="currentPage = 'booking'" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
+                            Reservar Agora
+                          </a>
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-3">
+                          <a href="#" @click.prevent="currentPage = 'gallery'" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 md:py-4 md:text-lg md:px-10">
+                            Ver o Espaço
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              </div>
+              <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2832&auto=format&fit=crop" alt="Escritório de coworking moderno">
+              </div>
+            </div>
+          </section>
+
+          <!-- Página de Reservas -->
+          <section v-if="currentPage === 'booking' || currentPage === 'payment' || currentPage === 'success'" class="py-12 bg-gray-50 w-full">
+            <div class="w-full px-4 sm:px-6 lg:px-8">
+              <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Reservar Espaço</h2>
+                
+                <!-- Seleção de Data -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-4">Selecione a Data</h3>
+                  <div class="grid grid-cols-7 gap-2">
+                    <div v-for="day in 31" :key="day" 
+                         class="text-center p-2 cursor-pointer hover:bg-blue-50"
+                         :class="{'selected-day': selectedDate === day}"
+                         @click="selectedDate = day">
+                      {{ day }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Seleção de Horário -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-4">Selecione o Horário</h3>
+                  <div class="grid grid-cols-4 gap-4">
+                    <button v-for="hour in [9, 10, 11, 14, 15, 16, 17]" 
+                            :key="hour"
+                            class="p-3 text-center border rounded-lg hover:bg-blue-50"
+                            :class="{'bg-blue-600 text-white': selectedHour === hour}"
+                            @click="selectedHour = hour">
+                      {{ hour }}:00
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Seleção de Tipo de Reserva -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-4">Tipo de Reserva</h3>
+                  <div class="grid grid-cols-3 gap-4">
+                    <button class="p-4 border rounded-lg hover:bg-blue-50"
+                            :class="{'bg-blue-600 text-white': selectedType === 'hourly'}"
+                            @click="selectedType = 'hourly'">
+                      <Clock class="w-6 h-6 mx-auto mb-2" />
+                      Por Hora
+                    </button>
+                    <button class="p-4 border rounded-lg hover:bg-blue-50"
+                            :class="{'bg-blue-600 text-white': selectedType === 'daily'}"
+                            @click="selectedType = 'daily'">
+                      <Calendar class="w-6 h-6 mx-auto mb-2" />
+                      Diária
+                    </button>
+                    <button class="p-4 border rounded-lg hover:bg-blue-50"
+                            :class="{'bg-blue-600 text-white': selectedType === 'monthly'}"
+                            @click="selectedType = 'monthly'">
+                      <DollarSign class="w-6 h-6 mx-auto mb-2" />
+                      Mensal
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Botão de Confirmação -->
+                <button class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                        @click="confirmReservation">
+                  Confirmar Reserva
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Página da Galeria -->
+          <section v-if="currentPage === 'gallery'" class="py-12 bg-white w-full">
+            <div class="w-full px-4 sm:px-6 lg:px-8">
+              <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nossas Instalações</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div v-for="(image, index) in galleryImages" :key="index" 
+                       class="relative group overflow-hidden rounded-lg shadow-lg">
+                    <img :src="image.src" 
+                         :alt="image.alt"
+                         class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300">
+                      <div class="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-lg font-semibold">{{ image.alt }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </transition>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white w-full">
+      <div class="w-full py-8 px-4 sm:px-6 lg:px-8 text-center">
+        <p>&copy; {{ new Date().getFullYear() }} Coworking Jurídico. Todos os direitos reservados.</p>
+        <p class="text-gray-400 text-sm mt-2">Av. Principal, 123 - Centro, Rio de Janeiro - RJ</p>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import { Clock, Calendar, DollarSign, ChevronLeftIcon, ChevronRightIcon, LockIcon, CheckCircle2Icon } from 'lucide-vue-next'
+
+// Estado da aplicação
+const currentPage = ref('home')
+const mobileMenuOpen = ref(false)
+
+// Estado da reserva
+const selectedDate = ref(null)
+const selectedHour = ref(null)
+const selectedType = ref('hourly')
+
+// Dados mockados
+const totalDesks = 4
+const bookingsData = ref([
+  { date: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-20`, hour: 10, desks: 4 },
+  { date: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-20`, hour: 11, desks: 2 },
+  { date: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-22`, type: 'daily', desks: 3 },
+  { date: `${new Date().getFullYear()}-${String(new Date().getMonth() + 2).padStart(2, '0')}-01`, type: 'monthly', desks: 1 },
+])
+
+const galleryImages = ref([
+  { 
+    src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2940&auto=format&fit=crop', 
+    alt: 'Área de trabalho colaborativa' 
+  },
+  { 
+    src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop', 
+    alt: 'Sala de reunião privativa' 
+  },
+  { 
+    src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2835&auto=format&fit=crop', 
+    alt: 'Estações de trabalho individuais' 
+  },
+  { 
+    src: 'https://images.unsplash.com/photo-1600508774634-4e54626eda82?q=80&w=2940&auto=format&fit=crop', 
+    alt: 'Copa e área de café' 
+  },
+  { 
+    src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2940&auto=format&fit=crop', 
+    alt: 'Recepção moderna' 
+  },
+  { 
+    src: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2940&auto=format&fit=crop', 
+    alt: 'Detalhes do ambiente' 
+  },
+])
+
+// Funções
+function navigateTo(page) {
+  currentPage.value = page
+  mobileMenuOpen.value = false
+}
+
+// Função para confirmar reserva
+function confirmReservation() {
+  if (!selectedDate || !selectedHour || !selectedType) {
+    alert('Por favor, preencha todos os campos da reserva.')
+    return
+  }
+  
+  // Aqui você pode adicionar a lógica para salvar a reserva
+  alert('Reserva confirmada com sucesso!')
+  currentPage.value = 'home'
+}
+</script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.selected-day {
+  background-color: #2563eb !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+/* Ajustes para ocupar toda a tela */
+:deep(.container) {
+  width: 100%;
+  max-width: none;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  :deep(.container) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :deep(.container) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+</style> 
