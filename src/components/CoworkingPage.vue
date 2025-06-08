@@ -78,6 +78,8 @@
                 <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="@/assets/1.jpg" alt="Escritório de coworking moderno">
               </div>
             </div>
+            <!-- Mapa do Google -->
+            <GoogleMap />
           </section>
 
           <!-- Página de Reservas -->
@@ -213,8 +215,9 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { Clock, Calendar, DollarSign, ChevronLeftIcon, ChevronRightIcon, LockIcon, CheckCircle2Icon } from 'lucide-vue-next'
-import { useReservationStore } from '../stores/reservation'
+import { useReservationStore } from '@/stores/reservation'
 import { useRouter } from 'vue-router'
+import GoogleMap from '@/components/GoogleMap.vue'
 
 // Importação das imagens
 import image1 from '@/assets/1.jpg'
