@@ -1,9 +1,9 @@
 <script setup>
-  import CoworkingPage from './components/CoworkingPage.vue'
+  // Componente raiz da aplicação
 </script>
 
 <template>
- <CoworkingPage />
+  <router-view></router-view>
 </template>
 
 <style>
