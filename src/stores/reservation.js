@@ -6,9 +6,9 @@ export const useReservationStore = defineStore('reservation', {
     selectedHour: null,
     selectedType: 'hourly',
     prices: {
-      hourly: 10,
-      daily: 50,
-      monthly: 500
+      hourly: 1,
+      daily: 1,
+      monthly: 1
     },
     paymentData: null
   }),

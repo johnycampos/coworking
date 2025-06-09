@@ -3,18 +3,18 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200">
-          <h2 class="text-2xl font-bold text-gray-900">Pagamento Aprovado!</h2>
+          <h2 class="text-2xl font-bold text-gray-900">Pagamento Pendente</h2>
         </div>
         <div class="px-6 py-4">
           <div class="text-center">
-            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-              <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100">
+              <svg class="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
-            <h3 class="mt-2 text-lg font-medium text-gray-900">Pagamento realizado com sucesso!</h3>
+            <h3 class="mt-2 text-lg font-medium text-gray-900">Seu pagamento está sendo processado</h3>
             <p class="mt-1 text-sm text-gray-500">
-              Sua reserva foi confirmada. Você receberá um email com os detalhes.
+              Você receberá um email assim que o pagamento for confirmado.
             </p>
             <div class="mt-6">
               <button
