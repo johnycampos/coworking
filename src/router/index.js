@@ -35,6 +35,11 @@ const routes = [
     path: '/payment-pending',
     name: 'payment-pending',
     component: PaymentPending
+  },
+  {
+    path: '/pending',
+    name: 'pending',
+    component: PaymentPending
   }
 ]
 

@@ -24,6 +24,9 @@
             <div v-if="error" class="mt-4 text-sm text-red-600">
               {{ error }}
             </div>
+            <div v-if="loading" class="mt-4 text-sm text-gray-600">
+              Verificando status do pagamento...
+            </div>
             <div class="mt-6">
               <button
                 @click="goToHome"
@@ -42,52 +45,77 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import api from '@/config/api'
 
 const router = useRouter()
 const route = useRoute()
 const paymentDetails = ref(null)
 const error = ref(null)
+const loading = ref(false)
 
 async function checkPaymentStatus(paymentId) {
+  loading.value = true
+  error.value = null
+  
   try {
-    const response = await fetch(`/api/payment/${paymentId}`)
+    console.log('Verificando status do pagamento:', paymentId)
+    const response = await fetch(`${api.API_BASE_URL}/api/payment/${paymentId}`)
+    console.log('Resposta da API:', response)
+    
     if (!response.ok) {
-      throw new Error('Erro ao verificar status do pagamento')
+      throw new Error(`Erro ao verificar status do pagamento: ${response.status}`)
     }
+    
     const data = await response.json()
+    console.log('Dados do pagamento:', data)
     return data
   } catch (err) {
+    console.error('Erro detalhado:', err)
     error.value = 'Não foi possível verificar o status do pagamento. Por favor, tente novamente mais tarde.'
-    console.error('Erro ao verificar pagamento:', err)
     return null
+  } finally {
+    loading.value = false
   }
 }
 
 onMounted(async () => {
-  const params = route.query
-  
-  if (Object.keys(params).length > 0) {
-    paymentDetails.value = {
-      payment_id: params.payment_id,
-      status: params.status,
-      external_reference: params.external_reference,
-      collection_status: params.collection_status,
-      payment_type: params.payment_type,
-      merchant_order_id: params.merchant_order_id
-    }
+  try {
+    console.log('Componente montado')
+    console.log('Parâmetros da URL:', route.query)
+    
+    const params = route.query
+    
+    if (Object.keys(params).length > 0) {
+      console.log('Parâmetros encontrados:', params)
+      paymentDetails.value = {
+        payment_id: params.payment_id,
+        status: params.status,
+        external_reference: params.external_reference,
+        collection_status: params.collection_status,
+        payment_type: params.payment_type,
+        merchant_order_id: params.merchant_order_id
+      }
 
-    // Verifica o status do pagamento
-    if (params.payment_id) {
-      const paymentStatus = await checkPaymentStatus(params.payment_id)
-      if (paymentStatus) {
-        // Atualiza os detalhes do pagamento com as informações mais recentes
-        paymentDetails.value = {
-          ...paymentDetails.value,
-          status: paymentStatus.status,
-          status_detail: paymentStatus.status_detail
+      // Verifica o status do pagamento
+      if (params.payment_id) {
+        console.log('Iniciando verificação do pagamento:', params.payment_id)
+        const paymentStatus = await checkPaymentStatus(params.payment_id)
+        if (paymentStatus) {
+          console.log('Status do pagamento atualizado:', paymentStatus)
+          paymentDetails.value = {
+            ...paymentDetails.value,
+            status: paymentStatus.status,
+            status_detail: paymentStatus.status_detail
+          }
         }
       }
+    } else {
+      console.log('Nenhum parâmetro encontrado na URL')
+      error.value = 'Nenhum dado de pagamento encontrado.'
     }
+  } catch (err) {
+    console.error('Erro ao processar pagamento:', err)
+    error.value = 'Ocorreu um erro ao processar o pagamento. Por favor, tente novamente mais tarde.'
   }
 })
 
