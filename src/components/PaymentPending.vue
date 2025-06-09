@@ -78,6 +78,10 @@ async function checkPaymentStatus(paymentId) {
   }
 }
 
+function isPaymentApproved(status) {
+  return status === 'approved' || status === 'completed' || status === 'success'
+}
+
 onMounted(async () => {
   try {
     console.log('Componente montado')
@@ -106,6 +110,13 @@ onMounted(async () => {
             ...paymentDetails.value,
             status: paymentStatus.status,
             status_detail: paymentStatus.status_detail
+          }
+
+          // Se o pagamento foi aprovado, redireciona para a página de sucesso
+          if (isPaymentApproved(paymentStatus.status)) {
+            console.log('Pagamento aprovado, redirecionando para página de sucesso')
+            router.push('/payment-success')
+            return
           }
         }
       }
