@@ -16,10 +16,45 @@
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">
               Você receberá um email assim que o pagamento for confirmado.
             </p>
+            <!-- PIX QR Code e campo de cópia -->
+            <div v-if="method === 'pix'" class="mt-6 flex flex-col items-center">
+              <span class="text-base font-semibold text-gray-900 dark:text-white mb-2">Pague com PIX</span>
+              <img :src="'data:image/png;base64,' + qrCodeBase64" alt="QR Code PIX" class="w-56 h-56 rounded shadow mb-4 border border-gray-200 dark:border-gray-700">
+              <div class="w-full max-w-xl flex flex-col items-center">
+                <label class="text-sm text-gray-700 dark:text-gray-300 mb-1">Copia e cola do PIX:</label>
+                <div class="flex w-full">
+                  <input
+                    :value="qrCode"
+                    readonly
+                    class="flex-1 px-2 py-1 rounded-l border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white text-xs"
+                    style="min-width:0;"
+                    id="pix-copia-cola"
+                  />
+                  <button
+                    type="button"
+                    @click="copyPixCode"
+                    class="px-3 py-1 rounded-r bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Copiar
+                  </button>
+                </div>
+              </div>
+            </div>
             <div v-if="paymentDetails" class="mt-4 text-sm text-gray-600 dark:text-gray-300">
               <p>ID do Pagamento: {{ paymentDetails.payment_id }}</p>
               <p>Status: {{ paymentDetails.status }}</p>
+              <p>Metodo de pagamento: {{ method }}</p>
               <p>Referência: {{ paymentDetails.external_reference }}</p>
+              <p v-if="linkMercadoPago" class="mt-2">
+                <a
+                  :href="linkMercadoPago"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded shadow transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Link de pagamento mercado pago
+                </a>
+              </p>
             </div>
             <div v-if="error" class="mt-4 text-sm text-red-600 dark:text-red-400">
               {{ error }}
@@ -52,6 +87,10 @@ const route = useRoute()
 const paymentDetails = ref(null)
 const error = ref(null)
 const loading = ref(false)
+const method = ref(null)
+const qrCode = ref(null)
+const qrCodeBase64 = ref(null)
+const linkMercadoPago = ref(null)
 
 async function checkPaymentStatus(paymentId) {
   loading.value = true
@@ -112,6 +151,10 @@ onMounted(async () => {
             status_detail: paymentStatus.status_detail
           }
 
+          method.value = paymentStatus.payment_method_id
+          qrCode.value = paymentStatus.point_of_interaction.transaction_data.qr_code
+          qrCodeBase64.value = paymentStatus.point_of_interaction.transaction_data.qr_code_base64
+          linkMercadoPago.value = paymentStatus.point_of_interaction.transaction_data.ticket_url
           // Se o pagamento foi aprovado, redireciona para a página de sucesso
           if (isPaymentApproved(paymentStatus.status)) {
             console.log('Pagamento aprovado, redirecionando para página de sucesso')
@@ -132,5 +175,12 @@ onMounted(async () => {
 
 function goToHome() {
   router.push('/')
+}
+
+function copyPixCode() {
+  const code = qrCode.value;
+  if (code) {
+    navigator.clipboard.writeText(code);
+  }
 }
 </script> 
