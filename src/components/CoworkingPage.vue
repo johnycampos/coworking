@@ -134,15 +134,21 @@
 
                 <!-- Seleção de Horário (apenas para reserva por hora) -->
                 <div v-if="selectedType === 'hourly'" class="bg-white dark:bg-gray-900 rounded-lg shadow p-6 mb-6">
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Selecione o Horário</h3>
-                  <div class="grid grid-cols-4 gap-4">
-                    <button v-for="hour in [9, 10, 11, 14, 15, 16, 17]" 
-                            :key="hour"
-                            class="p-3 text-center border rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700"
-                            :class="{'bg-blue-600 text-white': selectedHour === hour}"
-                            @click="selectedHour = hour">
-                      {{ hour }}:00
-                    </button>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Selecione a quantidade de horas por dia</h3>
+                  <div class="flex items-center space-x-4">
+                    <label for="quantidade-horas" class="block text-gray-700 dark:text-gray-300">Horas por dia:</label>
+                    <input
+                      id="quantidade-horas"
+                      type="number"
+                      min="1"
+                      max="12"
+                      v-model.number="selectedHour"
+                      class="w-24 px-2 py-1 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Ex: 2"
+                    />
+                  </div>
+                  <div v-if="selectedHour" class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                    Você selecionou {{ selectedHour }} hora(s) por dia.
                   </div>
                 </div>
 
@@ -150,18 +156,40 @@
                 <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-6 mb-6">
                   <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Resumo do Valor</h3>
                   <div class="space-y-2">
-                    <div class="flex justify-between">
-                      <span>Quantidade:</span>
-                      <span>{{ selectedType === 'monthly' ? '1 mês' : `${selectedDate.length} ${selectedType === 'hourly' ? 'horas' : 'dias'}` }}</span>
+                    <div v-if="selectedType === 'hourly'">
+                      <div class="flex justify-between">
+                        <span>Quantidade de dias:</span>
+                        <span>{{ selectedDate.length }}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Horas por dia:</span>
+                        <span>{{ selectedHour || 0 }}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Valor unitário (hora):</span>
+                        <span>R$ {{ prices.hourly }},00</span>
+                      </div>
+                      <div class="border-t pt-2 mt-2">
+                        <div class="flex justify-between font-semibold">
+                          <span>Total:</span>
+                          <span>R$ {{ prices.hourly * selectedDate.length * (selectedHour || 0) }},00</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="flex justify-between">
-                      <span>Valor unitário:</span>
-                      <span>R$ {{ prices[selectedType] }},00</span>
-                    </div>
-                    <div class="border-t pt-2 mt-2">
-                      <div class="flex justify-between font-semibold">
-                        <span>Total:</span>
-                        <span>R$ {{ calculateTotal() }},00</span>
+                    <div v-else>
+                      <div class="flex justify-between">
+                        <span>Quantidade:</span>
+                        <span>{{ selectedType === 'monthly' ? '1 mês' : `${selectedDate.length} ${selectedType === 'hourly' ? 'horas' : 'dias'}` }}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Valor unitário:</span>
+                        <span>R$ {{ prices[selectedType] }},00</span>
+                      </div>
+                      <div class="border-t pt-2 mt-2">
+                        <div class="flex justify-between font-semibold">
+                          <span>Total:</span>
+                          <span>R$ {{ calculateTotal() }},00</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -321,7 +349,7 @@ function confirmReservation() {
   }
 
   if (selectedType.value === 'hourly' && !selectedHour.value) {
-    alert('Por favor, selecione um horário para a reserva por hora.')
+    alert('Por favor, selecione a quantidade de horas por dia para a reserva por hora.')
     return
   }
   

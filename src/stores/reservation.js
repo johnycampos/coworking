@@ -6,7 +6,7 @@ export const useReservationStore = defineStore('reservation', {
     selectedHour: null,
     selectedType: 'hourly',
     prices: {
-      hourly: 1,
+      hourly: 2,
       daily: 1,
       monthly: 1
     },
@@ -16,7 +16,8 @@ export const useReservationStore = defineStore('reservation', {
   getters: {
     totalAmount: (state) => {
       if (state.selectedType === 'hourly') {
-        return state.prices.hourly * state.selectedDates.length
+        // Multiplica pelo número de dias e pela quantidade de horas por dia
+        return state.prices.hourly * state.selectedDates.length * (state.selectedHour || 0)
       } else if (state.selectedType === 'daily') {
         return state.prices.daily * state.selectedDates.length
       } else {

@@ -114,6 +114,23 @@ async function processPayment() {
 
     isLoading.value = true
 
+    // Montar dados extras da reserva
+    let reservationDetails = {}
+    if (selectedType.value === 'daily') {
+      reservationDetails = {
+        dias: store.selectedDates
+      }
+    } else if (selectedType.value === 'monthly') {
+      reservationDetails = {
+        mes: store.selectedDates[0] // ou outro formato, dependendo de como o mês é selecionado
+      }
+    } else if (selectedType.value === 'hourly') {
+      reservationDetails = {
+        horario: store.selectedHour,
+        dias: store.selectedDates
+      }
+    }
+
     // Criar preferência de pagamento
     const response = await fetch(API_ENDPOINTS.createPayment, {
       method: 'POST',
@@ -121,8 +138,9 @@ async function processPayment() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: totalAmount.value,
         description: `Reserva de coworking - ${getReservationTypeLabel.value}`,
+        tipo: selectedType.value,
+        ...reservationDetails,
         payer: {
           name: paymentData.value.name,
           email: paymentData.value.email,
