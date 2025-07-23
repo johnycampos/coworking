@@ -58,6 +58,40 @@
                       <p class="mt-3 text-base text-gray-500 dark:text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                         Ambiente profissional e totalmente equipado. Alugue por hora, dia ou mês e foque no que realmente importa: seus clientes.
                       </p>
+                      
+                      <!-- Nova seção informativa do processo de contratação (Home) -->
+                      <div class="mt-10">
+                        <h2 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2 text-center">Contrate seu plano online</h2>
+                        <!-- <p class="text-gray-700 dark:text-gray-300 mb-2 text-center">e comece em menos de um dia útil</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-center">Contratos sem fidelidade e sem taxa caução (ou outra garantia)</p> -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <!-- Painel 1 -->
+                          <div class="flex flex-col items-center bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transition hover:scale-105 hover:shadow-2xl">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 mb-4">
+                              <svg class="w-8 h-8 text-blue-700 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 014-4h4M7 7h.01M7 11h.01M7 15h.01"/></svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2 text-center">I - Selecione seu plano</h3>
+                            <p class="text-gray-700 dark:text-gray-300 text-center">Escolha a sua sala, posição de trabalho ou escritório virtual</p>
+                          </div>
+                          <!-- Painel 2 -->
+                          <div class="flex flex-col items-center bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transition hover:scale-105 hover:shadow-2xl">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 mb-4">
+                              <svg class="w-8 h-8 text-blue-700 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 113 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2 text-center">II - Envie a documentação</h3>
+                            <p class="text-gray-700 dark:text-gray-300 text-center">Envie os documentos solicitados e assine seu contrato online</p>
+                          </div>
+                          <!-- Painel 3 -->
+                          <div class="flex flex-col items-center bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transition hover:scale-105 hover:shadow-2xl">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 mb-4">
+                              <svg class="w-8 h-8 text-blue-700 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2 text-center">III - Comece a trabalhar!</h3>
+                            <p class="text-gray-700 dark:text-gray-300 text-center">Pronto! Seu novo escritório já está esperando por você!</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Botões de ação na Home -->
                       <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                         <div class="rounded-md shadow">
                           <a href="#" @click.prevent="currentPage = 'booking'" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 md:py-4 md:text-lg md:px-10">
@@ -70,6 +104,7 @@
                           </a>
                         </div>
                       </div>
+
                     </div>
                   </main>
                 </div>
