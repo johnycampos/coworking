@@ -16,6 +16,14 @@
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">
               Sua reserva foi confirmada. Você receberá um email com os detalhes.
             </p>
+            <!-- Campo de informações do pagamento -->
+  <div v-if="collectionId || orderId || externalReference" class="flex flex-col items-center justify-center mt-6 mb-4">
+    <div class="bg-gray-100 dark:bg-gray-700 rounded p-4 w-full max-w-md text-left text-sm text-gray-800 dark:text-gray-100 shadow">
+      <div v-if="collectionId"><span class="font-semibold">ID do Pagamento:</span> {{ collectionId }}</div>
+      <div v-if="orderId"><span class="font-semibold">Order ID:</span> {{ orderId }}</div>
+      <div v-if="externalReference"><span class="font-semibold">Referência:</span> {{ externalReference }}</div>
+    </div>
+  </div>
             <!-- Botão WhatsApp abaixo da mensagem -->
             <div class="flex justify-center mt-4">
               <a
@@ -44,6 +52,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Botão flutuante do WhatsApp -->
   <a
     href="https://wa.me/5521965702348"
@@ -60,11 +69,18 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 
 function goToHome() {
   router.push('/')
 }
+
+// Extrair parâmetros da URL
+const collectionId = computed(() => route.query.collection_id)
+const orderId = computed(() => route.query.merchant_order_id)
+const externalReference = computed(() => route.query.external_reference)
 </script> 

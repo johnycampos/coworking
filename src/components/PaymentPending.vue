@@ -157,10 +157,18 @@ onMounted(async () => {
           linkMercadoPago.value = paymentStatus.point_of_interaction.transaction_data.ticket_url
           // Se o pagamento foi aprovado, redireciona para a página de sucesso
           if (isPaymentApproved(paymentStatus.status)) {
-            console.log('Pagamento aprovado, redirecionando para página de sucesso')
-            router.push('/payment-success')
-            return
-          }
+  console.log('Pagamento aprovado, redirecionando para página de sucesso')
+  
+  router.push({
+    path: '/payment-success',
+    query: {
+      collection_id: params.collection_id || paymentDetails.value.payment_id,
+      merchant_order_id: params.merchant_order_id,
+      external_reference: params.external_reference
+    }
+  })
+  return
+}
         }
       }
     } else {
