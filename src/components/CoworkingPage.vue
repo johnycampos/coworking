@@ -71,7 +71,7 @@
                               <svg class="w-8 h-8 text-blue-700 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 014-4h4M7 7h.01M7 11h.01M7 15h.01"/></svg>
                             </div>
                             <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2 text-center">I - Selecione seu plano</h3>
-                            <p class="text-gray-700 dark:text-gray-300 text-center">Escolha a sua sala, posição de trabalho ou escritório virtual</p>
+                            <p class="text-gray-700 dark:text-gray-300 text-center">Escolha seu plano e efetue o pagamento</p>
                           </div>
                           <!-- Painel 2 -->
                           <div class="flex flex-col items-center bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transition hover:scale-105 hover:shadow-2xl">
