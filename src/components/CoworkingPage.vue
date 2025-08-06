@@ -275,7 +275,7 @@
   </div>
   <!-- Botão flutuante do WhatsApp -->
   <a
-    href="https://wa.me/5521965702348?text=Olá, gostaria de agendar uma reserva."
+    href="https://wa.me/5521995753900?text=Olá, gostaria de agendar uma reserva."
     target="_blank"
     rel="noopener noreferrer"
     class="fixed z-50 bottom-6 right-6 flex items-center justify-center w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-colors"

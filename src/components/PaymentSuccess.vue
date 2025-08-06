@@ -27,7 +27,7 @@
             <!-- Botão WhatsApp abaixo da mensagem -->
             <div class="flex justify-center mt-4">
               <a
-                href="https://wa.me/5521965702348"
+                href="https://wa.me/5521995753900"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 px-5 py-2 rounded-md bg-green-500 hover:bg-green-600 text-white font-medium shadow transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
@@ -55,7 +55,7 @@
   
   <!-- Botão flutuante do WhatsApp -->
   <a
-    href="https://wa.me/5521965702348"
+    href="https://wa.me/5521995753900"
     target="_blank"
     rel="noopener noreferrer"
     class="fixed z-50 bottom-6 right-6 flex items-center justify-center w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-lg transition-colors"
