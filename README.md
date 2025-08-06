@@ -12,11 +12,15 @@ Sistema de gerenciamento e reserva de espaços para escritórios de advocacia em
   - Seleção de data e horário
 - **Galeria de Fotos**: Visualização das instalações com efeitos de hover
 - **Design Responsivo**: Interface adaptável para desktop e mobile
+- **Analytics**: Rastreamento de eventos com Firebase Analytics
 
 ## 🛠️ Tecnologias Utilizadas
 
 - Vue 3 (Composition API)
 - Vite
+- Pinia (Gerenciamento de Estado)
+- Vue Router
+- Firebase (Analytics e Hosting)
 - Tailwind CSS
 - Lucide Icons
 - Google Fonts (Inter)
@@ -25,6 +29,7 @@ Sistema de gerenciamento e reserva de espaços para escritórios de advocacia em
 
 - Node.js (versão 14 ou superior)
 - npm ou yarn
+- Firebase CLI (para deploy)
 
 ## 🔧 Instalação
 
@@ -41,32 +46,98 @@ npm install
 yarn install
 ```
 
-3. Execute o projeto em modo de desenvolvimento
+3. Instale o Firebase CLI globalmente (se ainda não tiver)
+```bash
+npm install -g firebase-tools
+```
+
+4. Faça login no Firebase
+```bash
+firebase login
+```
+
+5. Configure o Firebase (apenas na primeira vez)
+```bash
+firebase init hosting
+# Selecione o projeto: coworking-juridico
+# Diretório público: dist
+# Configurar como SPA: Sim
+# Sobrescrever index.html: Não
+```
+
+## 🚀 Como Executar
+
+### Desenvolvimento Local
 ```bash
 npm run dev
 # ou
 yarn dev
 ```
 
-4. Para build de produção
+O projeto estará disponível em: `http://localhost:5173`
+
+### Build de Produção
 ```bash
 npm run build
 # ou
 yarn build
 ```
 
+### Preview do Build
+```bash
+npm run preview
+# ou
+yarn preview
+```
+
+## 🌐 Deploy no Firebase
+
+### Deploy Completo (Build + Deploy)
+```bash
+npm run deploy
+# ou
+yarn deploy
+```
+
+### Deploy Manual
+```bash
+# 1. Fazer o build
+npm run build
+
+# 2. Fazer o deploy
+firebase deploy
+```
+
+### Aplicação Online
+A aplicação está disponível em: **https://coworking-juridico.web.app**
+
 ## 📦 Estrutura do Projeto
 
 ```
 coworking/
 ├── src/
-│   ├── components/
-│   │   └── CoworkingPage.vue    # Componente principal
-│   ├── App.vue                  # Componente raiz
-│   ├── main.js                  # Ponto de entrada
-│   └── style.css               # Estilos globais
+│   ├── components/             # Componentes Vue
+│   │   ├── CoworkingPage.vue   # Página principal
+│   │   ├── PaymentPage.vue     # Página de pagamento
+│   │   ├── GoogleMap.vue       # Componente do mapa
+│   │   └── ...                 # Outros componentes
+│   ├── firebase/               # Configuração Firebase
+│   │   ├── config.js           # Configuração principal
+│   │   └── analytics.js        # Utilitários de Analytics
+│   ├── stores/                 # Stores Pinia
+│   │   └── reservation.js      # Store de reservas
+│   ├── router/                 # Configuração de rotas
+│   │   └── index.js
+│   ├── api/                    # APIs externas
+│   │   └── payment.js          # Integração MercadoPago
+│   ├── App.vue                 # Componente raiz
+│   ├── main.js                 # Ponto de entrada
+│   └── style.css              # Estilos globais
 ├── public/                     # Arquivos estáticos
-└── index.html                  # Template HTML
+├── dist/                       # Build de produção
+├── firebase.json              # Configuração Firebase Hosting
+├── .firebaserc                # Projeto Firebase
+└── index.html                 # Template HTML
 ```
 
 ## 🎨 Customização
@@ -74,6 +145,20 @@ coworking/
 - As cores principais podem ser alteradas no arquivo `src/style.css`
 - As imagens da galeria podem ser modificadas no array `galleryImages` em `CoworkingPage.vue`
 - Os horários disponíveis podem ser ajustados no componente de reservas
+- Configurações do Firebase podem ser alteradas em `src/firebase/config.js`
+
+## 📊 Firebase Analytics
+
+O projeto inclui Firebase Analytics para rastreamento de eventos. Para usar:
+
+```javascript
+import { trackPageView, trackButtonClick, trackReservation } from '@/firebase/analytics'
+
+// Exemplos de uso
+trackPageView('Página Principal')
+trackButtonClick('Botão Reservar')
+trackReservation('Sala de Reunião')
+```
 
 ## 🤝 Contribuindo
 
@@ -94,3 +179,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 📞 Suporte
 
 Para suporte, envie um email para [seu-email@exemplo.com] ou abra uma issue no GitHub.
+
+## 🔗 Links Úteis
+
+- **Aplicação Online**: https://coworking-juridico.web.app
+- **Console Firebase**: https://console.firebase.google.com/project/coworking-juridico/overview
+- **Analytics**: https://console.firebase.google.com/project/coworking-juridico/analytics
